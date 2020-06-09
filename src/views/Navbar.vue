@@ -152,7 +152,7 @@ export default Vue.extend({
 
   .navbar-switcher {
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
     left: 100%;
     width: 2.2rem;
     height: 2.5rem;

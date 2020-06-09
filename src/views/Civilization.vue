@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div class="civilization">
-      <div v-if="receivedData">
+      <div v-if="receivedData && civ">
         <h1><img :src="civ.image" class="civ-image">{{ civ.name }} | {{ civ.leader }}</h1>
         <hr class="divider">
-        <p>Starting bias: <span v-html="civ.startingBias"></span></p>
+        <p>Starting bias: <span v-html="civ.startingBias"/></p>
         <hr class="divider">
         <div class="flex block-sm">
         <p class="flex-label">Unique Ability:</p>

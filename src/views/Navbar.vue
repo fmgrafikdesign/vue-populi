@@ -167,6 +167,7 @@ export default Vue.extend({
     text-align: center;
     cursor: pointer;
     transition: all .2s ease;
+    z-index: 1;
   }
 
   .navbar-switcher:hover {

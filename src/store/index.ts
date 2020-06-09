@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import ICivilization from '@/ICivilization'
 import axios from 'axios'
 import router from '@/router'
-const url = 'https://cdn.fmgrafikdesign.de/vox-populi/data.json'
+const url = 'https://secure-everglades-13540.herokuapp.com/'
 
 Vue.use(Vuex)
 

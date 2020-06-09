@@ -1,32 +1,35 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <navbar/>
     </div>
+    <div class="router-view w100">
     <router-view/>
+    </div>
   </div>
 </template>
+<script lang="ts">
+import Vue from 'vue'
+import Navbar from '@/views/Navbar.vue'
 
+export default Vue.extend({
+  components: { Navbar },
+  created () {
+    this.$store.dispatch('getCivilizationData')
+  }
+})
+</script>
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Didact Gothic', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  display: flex;
+  height: 100%;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  .router-view {
+    height: 100%;
+    overflow-y: auto;
+  }
 </style>

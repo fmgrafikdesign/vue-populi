@@ -57,8 +57,8 @@ export default Vue.extend({
       return this.$store.state.civilizations
     },
     filteredCivilizations (): ICivilization[] {
-      // return this.civilizations.filter(civ => civ.name.toLowerCase().includes(this.civFilter.toLowerCase()) || civ.leader.toLowerCase().includes(this.civFilter.toLowerCase()))
-      return this.civilizations.filter(civ => JSON.stringify(civ).toLowerCase().includes(this.civFilter.toLowerCase()))
+      return this.civilizations.filter(civ => civ.name.toLowerCase().includes(this.civFilter.toLowerCase()) || civ.leader.toLowerCase().includes(this.civFilter.toLowerCase()))
+      // return this.civilizations.filter(civ => JSON.stringify(civ).toLowerCase().includes(this.civFilter.toLowerCase()))
     },
     receivedData (): boolean {
       return this.$store.state.receivedData

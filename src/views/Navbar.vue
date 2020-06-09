@@ -87,7 +87,8 @@ export default Vue.extend({
     padding: .5rem;
     font-family: 'Didact Gothic', sans-serif;
     font-size: 1rem;
-
+    border: 0;
+    box-shadow: 0 0;
   }
 
   .responsive {

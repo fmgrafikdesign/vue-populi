@@ -3,7 +3,7 @@
   <div class="navbar" v-bind:class="{ collapsed }">
     <div class="flex h100">
       <div class="civilizations w100">
-        <input type="text" v-model="civFilter" v-on:input="civFilter = $event.target.value" ref="search" placeholder="Start typing to filter">
+        <input type="text" v-model="civFilter" v-on:input="civFilter = $event.target.value" ref="search" placeholder="Type anywhere to filter">
 
         <div v-if="receivedData">
           <div v-for="civ in filteredCivilizations" v-bind:key="civ.id">
@@ -86,7 +86,7 @@ export default Vue.extend({
     outline: 0;
     padding: .5rem;
     font-family: 'Didact Gothic', sans-serif;
-    font-size: 1rem;
+    font-size: .9rem;
     border: 0;
     box-shadow: 0 0;
   }

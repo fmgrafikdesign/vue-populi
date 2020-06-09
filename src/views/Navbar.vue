@@ -3,7 +3,7 @@
   <div class="navbar" v-bind:class="{ collapsed }">
     <div class="flex h100">
       <div class="civilizations w100">
-        <input type="text" v-model="civFilter" v-on:input="civFilter = $event.target.value" ref="search" placeholder="start typing to filter">
+        <input type="text" v-model="civFilter" v-on:input="civFilter = $event.target.value" ref="search" placeholder="Start typing to filter">
 
         <div v-if="receivedData">
           <div v-for="civ in filteredCivilizations" v-bind:key="civ.id">

@@ -21,7 +21,7 @@
           <p v-html="civ.uniqueUnit"/>
         </div>
         <hr class="divider">
-        <p>Vox Populi Civilization viewer made with ♥ and Vue by <a href="https://fmgrafikdesign.de/" target="_blank">Fabian Mohr</a>. All content taken from <a href="https://civ-5-cbp.fandom.com/wiki/Civilizations" target="_blank">the vox
+        <p>Vox Populi Civilization viewer made with ♥ and <img src="https://vignette.wikia.nocookie.net/civ-5-cbp/images/1/1c/20xScience5.png/revision/latest"> by <a href="https://fmgrafikdesign.de/" target="_blank">Fabian Mohr</a>. All content taken from <a href="https://civ-5-cbp.fandom.com/wiki/Civilizations" target="_blank">the vox
           populi wiki</a> under the <a href="https://creativecommons.org/licenses/by-sa/3.0/legalcode" target="_blank">CC
           BY-SA 3.0 license</a>.</p>
       </div>

@@ -28,7 +28,7 @@ export default new Vuex.Store({
       return state.civilizations.find(civ => civ.id === id)
     },
     getCivilizationByName: (state) => (name: string) => {
-      return state.civilizations.find(civ => civ.name === name)
+      return state.civilizations.find(civ => civ.name.toLowerCase() === name.toLowerCase())
     }
   },
   mutations: {
@@ -53,7 +53,7 @@ export default new Vuex.Store({
     },
     navigateToCivilization ({ state }) {
       if (router.currentRoute.fullPath === '/') {
-        router.push({ path: '/civilization/' + state.civilizations[0].name })
+        router.push({ path: '/civilization/' + state.civilizations[0].name.toLowerCase() })
       }
     }
   },

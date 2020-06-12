@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import ICivilization from '@/ICivilization'
 import axios from 'axios'
 import router from '@/router'
+import localforage from 'localforage'
 const url = 'https://secure-everglades-13540.herokuapp.com/'
 
 Vue.use(Vuex)
@@ -45,10 +46,16 @@ export default new Vuex.Store({
   },
   actions: {
     getCivilizationData ({ commit, dispatch }) {
+      localforage.getItem('civilizations').then((value: any) => {
+        if (!value) return
+        commit('setCivilizationData', value)
+        dispatch('navigateToCivilization')
+      })
       axios.get(url)
         .then(data => {
           commit('setCivilizationData', data.data)
           dispatch('navigateToCivilization')
+          localforage.setItem('civilizations', data.data)
         })
     },
     navigateToCivilization ({ state }) {

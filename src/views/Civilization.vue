@@ -2,7 +2,7 @@
   <div class="container">
     <div class="civilization">
       <div v-if="receivedData && civ">
-        <h1><img :src="'/img/' + civ.image" class="civ-image">{{ civ.name }} | {{ civ.leader }}</h1>
+        <h1><img :src="civ.image" class="civ-image">{{ civ.name }} | {{ civ.leader }}</h1>
         <hr class="divider">
         <p>Starting bias: <span v-html="civ.startingBias"/></p>
         <hr class="divider">

@@ -9,7 +9,7 @@
           <div v-for="civ in filteredCivilizations" v-bind:key="civ.id">
             <router-link :to="/civilization/ + civ.name.toLowerCase()" class="nav-link" active-class="active" :title="civ.name">
               <div class="flex align-items-center">
-              <img :src="'/img/' + civ.image" class="responsive nav-img">
+              <img :src="civ.image" class="responsive nav-img">
                 <span>{{ civ.name }}</span>
               </div>
             </router-link>

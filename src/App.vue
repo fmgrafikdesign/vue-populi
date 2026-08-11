@@ -9,14 +9,15 @@
   </div>
 </template>
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from 'vue'
+import { useCivilizationStore } from '@/store/civilizations'
 import Navbar from '@/views/Navbar.vue'
 
-export default Vue.extend({
+export default defineComponent({
   components: { Navbar },
-  created () {
-    this.$store.dispatch('getCivilizationData')
-  }
+  created() {
+    useCivilizationStore().getCivilizationData()
+  },
 })
 </script>
 <style>

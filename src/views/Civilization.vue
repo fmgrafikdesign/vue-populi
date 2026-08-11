@@ -2,7 +2,7 @@
   <div class="container">
     <div class="civilization">
       <div v-if="receivedData && civ">
-        <h1><img :src="civ.image" class="civ-image">{{ civ.name }} | {{ civ.leader }}</h1>
+        <h1><picture><source :srcset="'/img/' + civ.name + '.webp'" type="image/webp"><img :src="'/img/' + civ.name + '.png'" class="civ-image"></picture>{{ civ.name }} | {{ civ.leader }}</h1>
         <hr class="divider">
         <p>Starting bias: <span v-html="civ.startingBias"/></p>
         <hr class="divider">
@@ -67,27 +67,33 @@
 </template>
 
 <script lang="ts">
-import ICivilization from '../ICivilization'
-import Vue from 'vue'
+import { defineComponent } from 'vue'
+import { useCivilizationStore } from '@/store/civilizations'
+import type ICivilization from '../ICivilization'
 
-export default Vue.extend({
+export default defineComponent({
   name: 'Civilization',
   computed: {
-    civ (): ICivilization {
-      return this.$store.getters.getCivilizationByName(this.$route.params.name)
+    civ(): ICivilization | undefined {
+      return useCivilizationStore().getCivilizationByName(
+        this.$route.params.name as string,
+      )
     },
-    receivedData (): boolean {
-      return this.$store.state.receivedData
-    }
-  }
+    receivedData(): boolean {
+      return useCivilizationStore().receivedData
+    },
+  },
 })
 </script>
 
 <style scoped>
+  .civilization picture {
+    display: contents;
+  }
   .civilization {
     margin-top: 3rem;
   }
-  .civilization >>> img {
+  .civilization :deep(img) {
     transform: translateY(4px);
   }
 

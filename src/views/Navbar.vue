@@ -3,13 +3,13 @@
   <div class="navbar" v-bind:class="{ collapsed }">
     <div class="flex h100">
       <div class="civilizations w100">
-        <input type="text" v-model="civFilter" v-on:input="civFilter = $event.target.value" ref="search" placeholder="Type anywhere to filter">
+        <input type="text" v-model="civFilter" v-on:input="civFilter = ($event.target as HTMLInputElement).value" ref="search" placeholder="Type anywhere to filter">
 
         <div v-if="receivedData">
           <div v-for="civ in filteredCivilizations" v-bind:key="civ.id">
             <router-link :to="/civilization/ + civ.name.toLowerCase()" class="nav-link" active-class="active" :title="civ.name">
               <div class="flex align-items-center">
-              <img :src="civ.image" class="responsive nav-img">
+              <picture><source :srcset="'/img/' + civ.name + '.webp'" type="image/webp"><img :src="'/img/' + civ.name + '.png'" class="responsive nav-img"></picture>
                 <span>{{ civ.name }}</span>
               </div>
             </router-link>
@@ -41,46 +41,55 @@
 </template>
 
 <script lang="ts">
-import ICivilization from '@/ICivilization'
-import Vue from 'vue'
+import { defineComponent } from 'vue'
+import type ICivilization from '@/ICivilization'
+import { useCivilizationStore } from '@/store/civilizations'
 
-export default Vue.extend({
+export default defineComponent({
   name: 'Navbar',
-  data () {
+  data() {
     return {
       civFilter: '',
-      collapsed: false
+      collapsed: false,
     }
   },
   computed: {
-    civilizations (): ICivilization[] {
-      return this.$store.state.civilizations
+    civilizations(): ICivilization[] {
+      return useCivilizationStore().civilizations
     },
-    filteredCivilizations (): ICivilization[] {
-      return this.civilizations.filter(civ => civ.name.toLowerCase().includes(this.civFilter.toLowerCase()) || civ.leader.toLowerCase().includes(this.civFilter.toLowerCase()))
+    filteredCivilizations(): ICivilization[] {
+      return this.civilizations.filter(
+        (civ) =>
+          civ.name.toLowerCase().includes(this.civFilter.toLowerCase()) ||
+          civ.leader.toLowerCase().includes(this.civFilter.toLowerCase()),
+      )
       // return this.civilizations.filter(civ => JSON.stringify(civ).toLowerCase().includes(this.civFilter.toLowerCase()))
     },
-    receivedData (): boolean {
-      return this.$store.state.receivedData
-    }
+    receivedData(): boolean {
+      return useCivilizationStore().receivedData
+    },
   },
-  created () {
+  created() {
     window.addEventListener('keydown', this.keydownEvent)
   },
-  destroyed () {
+  unmounted() {
     window.removeEventListener('keydown', this.keydownEvent)
   },
   methods: {
-    keydownEvent (e: KeyboardEvent) {
+    keydownEvent(e: KeyboardEvent) {
       // Don't capture special keys or spacebar, but capture backspace
       if ((e.key.length > 1 || e.key === ' ') && e.key !== 'Backspace') return
-      (this.$refs.search as HTMLInputElement).focus()
-    }
-  }
+      ;(this.$refs.search as HTMLInputElement).focus()
+    },
+  },
 })
 </script>
 
 <style scoped>
+  picture {
+    display: contents;
+  }
+
   input, input:focus, input:active {
     width: 100%;
     outline: 0;

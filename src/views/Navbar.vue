@@ -9,7 +9,7 @@
           <div v-for="civ in filteredCivilizations" v-bind:key="civ.id">
             <router-link :to="/civilization/ + civ.name.toLowerCase()" class="nav-link" active-class="active" :title="civ.name">
               <div class="flex align-items-center">
-              <picture><source :srcset="'/img/' + civ.name + '.webp'" type="image/webp"><img :src="'/img/' + civ.name + '.png'" class="responsive nav-img"></picture>
+              <picture><source :srcset="'/img/' + civ.name + '.webp'" type="image/webp"><img width="62" height="62" :src="'/img/' + civ.name + '.png'" class="responsive nav-img"></picture>
                 <span>{{ civ.name }}</span>
               </div>
             </router-link>
@@ -46,7 +46,7 @@ import type ICivilization from '@/ICivilization'
 import { useCivilizationStore } from '@/store/civilizations'
 
 export default defineComponent({
-  name: 'Navbar',
+  name: 'NavbarView',
   data() {
     return {
       civFilter: '',

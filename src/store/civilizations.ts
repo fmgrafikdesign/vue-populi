@@ -9,7 +9,7 @@ const url = import.meta.env.VITE_API_URL as string
 interface State {
   civilizations: ICivilization[]
   receivedData: boolean
-  settings: {}
+  settings: Record<string, unknown>
   civFilter: string
 }
 
@@ -45,7 +45,7 @@ export const useCivilizationStore = defineStore('civilizations', {
       this.civFilter = this.civFilter.slice(0, -1)
     },
     getCivilizationData() {
-      localforage.getItem('civilizations').then((value: any) => {
+      localforage.getItem<ICivilization[]>('civilizations').then((value) => {
         if (!value) return
         this.setCivilizationData(value)
         this.navigateToCivilization()
@@ -59,7 +59,7 @@ export const useCivilizationStore = defineStore('civilizations', {
     navigateToCivilization() {
       if (router.currentRoute.value.fullPath === '/') {
         router.push({
-          path: '/civilization/' + this.civilizations[0].name.toLowerCase(),
+          path: `/civilization/${this.civilizations[0].name.toLowerCase()}`,
         })
       }
     },

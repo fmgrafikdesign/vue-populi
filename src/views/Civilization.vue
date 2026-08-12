@@ -2,23 +2,23 @@
   <div class="container">
     <div class="civilization">
       <div v-if="receivedData && civ">
-        <h1><picture><source :srcset="'/img/' + civ.name + '.webp'" type="image/webp"><img :src="'/img/' + civ.name + '.png'" class="civ-image"></picture>{{ civ.name }} | {{ civ.leader }}</h1>
+        <h1><picture><source :srcset="'/img/' + civ.name + '.webp'" type="image/webp"><img width="54" height="54" :src="'/img/' + civ.name + '.png'" class="civ-image"></picture>{{ civ.name }} | {{ civ.leader }}</h1>
         <hr class="divider">
-        <p>Starting bias: <span v-html="civ.startingBias"/></p>
+        <p>Starting bias: <TokenizedText :text="civ.startingBias"/></p>
         <hr class="divider">
         <div class="flex block-sm">
         <p class="flex-label">Unique Ability:</p>
-          <p v-html="civ.uniqueAbility"/>
+          <p><TokenizedText :text="civ.uniqueAbility"/></p>
         </div>
         <hr class="divider">
         <div class="flex block-sm">
         <p class="flex-label">Unique Building<br class="none-sm"> / Improvement:</p>
-          <p v-html="civ.uniqueBuildingOrImprovement"/>
+          <p><TokenizedText :text="civ.uniqueBuildingOrImprovement"/></p>
         </div>
         <hr class="divider">
         <div class="flex block-sm">
         <p class="flex-label">Unique Unit:</p>
-          <p v-html="civ.uniqueUnit"/>
+          <p><TokenizedText :text="civ.uniqueUnit"/></p>
         </div>
         <hr class="divider">
         <p>Vox Populi Civilization viewer made with ♥ and <img src="https://vignette.wikia.nocookie.net/civ-5-cbp/images/1/1c/20xScience5.png/revision/latest"> by <a href="https://fmgrafikdesign.de/" target="_blank">Fabian Mohr</a>. All content taken from <a href="https://civ-5-cbp.fandom.com/wiki/Civilizations" target="_blank">the vox
@@ -68,11 +68,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import TokenizedText from '@/components/TokenizedText.vue'
 import { useCivilizationStore } from '@/store/civilizations'
 import type ICivilization from '../ICivilization'
 
 export default defineComponent({
-  name: 'Civilization',
+  name: 'CivilizationView',
+  components: {
+    TokenizedText,
+  },
   computed: {
     civ(): ICivilization | undefined {
       return useCivilizationStore().getCivilizationByName(

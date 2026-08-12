@@ -8,6 +8,7 @@ export default defineConfig({
     vue(),
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: null,
       includeAssets: ['favicon.ico', 'img/icons/safari-pinned-tab.svg'],
       manifest: {
         name: 'Civilizations - Vox Populi',

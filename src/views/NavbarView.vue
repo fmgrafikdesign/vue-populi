@@ -40,49 +40,37 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { computed, onUnmounted, ref, useTemplateRef } from 'vue'
 import type ICivilization from '@/ICivilization'
 import { useCivilizationStore } from '@/store/civilizations'
 
-export default defineComponent({
-  name: 'NavbarView',
-  data() {
-    return {
-      civFilter: '',
-      collapsed: false,
-    }
-  },
-  computed: {
-    civilizations(): ICivilization[] {
-      return useCivilizationStore().civilizations
-    },
-    filteredCivilizations(): ICivilization[] {
-      return this.civilizations.filter(
-        (civ) =>
-          civ.name.toLowerCase().includes(this.civFilter.toLowerCase()) ||
-          civ.leader.toLowerCase().includes(this.civFilter.toLowerCase()),
-      )
-      // return this.civilizations.filter(civ => JSON.stringify(civ).toLowerCase().includes(this.civFilter.toLowerCase()))
-    },
-    receivedData(): boolean {
-      return useCivilizationStore().receivedData
-    },
-  },
-  created() {
-    window.addEventListener('keydown', this.keydownEvent)
-  },
-  unmounted() {
-    window.removeEventListener('keydown', this.keydownEvent)
-  },
-  methods: {
-    keydownEvent(e: KeyboardEvent) {
-      // Don't capture special keys or spacebar, but capture backspace
-      if ((e.key.length > 1 || e.key === ' ') && e.key !== 'Backspace') return
-      ;(this.$refs.search as HTMLInputElement).focus()
-    },
-  },
-})
+const civFilter = ref('')
+const collapsed = ref(false)
+const search = useTemplateRef<HTMLInputElement>('search')
+
+const civilizations = computed<ICivilization[]>(
+  () => useCivilizationStore().civilizations,
+)
+const filteredCivilizations = computed<ICivilization[]>(() =>
+  civilizations.value.filter(
+    (civ) =>
+      civ.name.toLowerCase().includes(civFilter.value.toLowerCase()) ||
+      civ.leader.toLowerCase().includes(civFilter.value.toLowerCase()),
+  ),
+)
+const receivedData = computed<boolean>(
+  () => useCivilizationStore().receivedData,
+)
+
+function keydownEvent(e: KeyboardEvent) {
+  // Don't capture special keys or spacebar, but capture backspace
+  if ((e.key.length > 1 || e.key === ' ') && e.key !== 'Backspace') return
+  search.value?.focus()
+}
+
+window.addEventListener('keydown', keydownEvent)
+onUnmounted(() => window.removeEventListener('keydown', keydownEvent))
 </script>
 
 <style scoped>

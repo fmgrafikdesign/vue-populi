@@ -1,24 +1,18 @@
 <template>
   <div id="app">
     <div id="nav">
-      <navbar/>
+      <NavbarView/>
     </div>
     <div class="router-view w100">
     <router-view/>
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import { useCivilizationStore } from '@/store/civilizations'
-import Navbar from '@/views/Navbar.vue'
+import NavbarView from '@/views/NavbarView.vue'
 
-export default defineComponent({
-  components: { Navbar },
-  created() {
-    useCivilizationStore().getCivilizationData()
-  },
-})
+useCivilizationStore().getCivilizationData()
 </script>
 <style>
 #app {

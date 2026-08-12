@@ -1,16 +1,16 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import Civilization from '@/views/Civilization.vue'
+import CivilizationView from '@/views/CivilizationView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/civilization/:name',
     name: 'Civilization',
-    component: Civilization,
+    component: CivilizationView,
   },
   {
     path: '/',
     name: 'Loading...',
-    component: Civilization,
+    component: CivilizationView,
   },
 ]
 

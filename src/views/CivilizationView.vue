@@ -66,28 +66,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import TokenizedText from '@/components/TokenizedText.vue'
 import { useCivilizationStore } from '@/store/civilizations'
 import type ICivilization from '../ICivilization'
 
-export default defineComponent({
-  name: 'CivilizationView',
-  components: {
-    TokenizedText,
-  },
-  computed: {
-    civ(): ICivilization | undefined {
-      return useCivilizationStore().getCivilizationByName(
-        this.$route.params.name as string,
-      )
-    },
-    receivedData(): boolean {
-      return useCivilizationStore().receivedData
-    },
-  },
-})
+const route = useRoute()
+
+const civ = computed<ICivilization | undefined>(() =>
+  useCivilizationStore().getCivilizationByName(route.params.name as string),
+)
+const receivedData = computed<boolean>(
+  () => useCivilizationStore().receivedData,
+)
 </script>
 
 <style scoped>

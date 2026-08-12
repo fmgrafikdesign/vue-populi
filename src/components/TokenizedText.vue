@@ -15,8 +15,8 @@
   </span>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+<script setup lang="ts">
+import { computed } from 'vue'
 import { getTokenIconSrc } from '@/tokenIcons'
 
 const TOKEN_PATTERN = /\{([^{}]+)\}/g
@@ -66,20 +66,9 @@ function tokenize(text: string): Segment[] {
   return segments
 }
 
-export default defineComponent({
-  name: 'TokenizedText',
-  props: {
-    text: {
-      type: String as PropType<string>,
-      default: '',
-    },
-  },
-  computed: {
-    segments(): Segment[] {
-      return tokenize(this.text)
-    },
-  },
-})
+const props = withDefaults(defineProps<{ text?: string }>(), { text: '' })
+
+const segments = computed<Segment[]>(() => tokenize(props.text))
 </script>
 
 <style scoped>
